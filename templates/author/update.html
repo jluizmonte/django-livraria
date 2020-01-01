@@ -1,0 +1,34 @@
+{% extends 'base/base.html' %}
+{% block title%} edição de autor{% endblock %}
+{% block main %}
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4" style="margin-top: 18%">
+            <form method="post">
+                {% csrf_token %}
+                <span style="color: red">{{ form.non_field_errors }}</span>
+                <div class="form-group">
+                    {{ form.genre.label_tag }}
+                    {{ form.genre }}
+                    <span style="color: red">{{ form.genre.errors }}</span>
+                </div>
+                <div class="form-group">
+                    {{ form.name.label_tag }}
+                    {{ form.name }}
+                    <span style="color: red">{{ form.name.errors }}</span>
+                </div>
+                <div class="row">
+                    <div class="col-9">
+                        <button type="submit" class="btn btn-success">Atualizar</button>
+                    </div>
+                    <div class="col-3">
+                        {% if request.META.HTTP_REFERER %}
+                            <a href="{{request.META.HTTP_REFERER}}" class="btn btn-primary">Voltar</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-4"></div>
+    </div>
+{% endblock %}

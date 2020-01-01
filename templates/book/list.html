@@ -1,0 +1,69 @@
+{% extends 'base/base.html' %}
+{% block title %} lista de autores de livros{% endblock %}
+{% block css %}
+    <script src="https://kit.fontawesome.com/ba15eb223d.js" crossorigin="anonymous"></script>
+{% endblock %}
+{% block main %}
+    <div class="row" style="margin-top: 10%">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Gênero</th>
+                        <th scope="col">Autor</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col"><a href="{% url 'book-create' %}"><i class="fas fa-user-plus"></i></a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for livro in page_obj %}
+                        <tr>
+                            <td>
+                                {% for genero in livro.genre.all %}
+                                    {% if forloop.last %}
+                                        {{ genero }}
+                                    {% else %}
+                                        {{ genero }},
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for autor in livro.author.all %}
+                                    {% if forloop.last %}
+                                        {{ autor }}
+                                    {% else %}
+                                        {{ autor }},
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>{{livro.name}}</td>
+                            <td>
+                                <a href="{% url 'book-detail' livro.pk %}"><i class="fas fa-info-circle" style="margin-right: 10px"></i></a>
+                                <a href="{% url 'book-delete' livro.pk %}"><i class="fas fa-user-minus" style="margin-right: 10px"></i></a>
+                                <a href="{% url 'book-update' livro.pk %}"><i class="fas fa-user-edit"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if page_obj.has_other_pages %}
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page=1">&laquo; Primeira</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
+                    {% endif %}
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link">{{ page_obj.number }}<span class="sr-only">(atual)</span></a>
+                    </li>
+
+                    {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a></li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="col-2"></div>
+    </div>
+{% endblock %}

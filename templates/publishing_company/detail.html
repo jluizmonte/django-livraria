@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+{% block title %}detalhe de editora{% endblock %}
+{% block main %}
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4" style="margin-top: 23%">
+            <form>
+                <div class="form-group">
+                    <label for="id_name">Nome</label>
+                    <input type="text" class="form-control" id="id_name" value="{{ object.name }}" readonly>
+                </div>
+                {% if request.META.HTTP_REFERER %}
+                    <a href="{{request.META.HTTP_REFERER}}" class="btn btn-primary">Voltar</a>
+                {% endif %}
+            </form>
+        </div>
+        <div class="col-4"></div>
+    </div>
+{% endblock %}

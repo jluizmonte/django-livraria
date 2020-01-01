@@ -1,0 +1,131 @@
+﻿{% extends 'base/boighor.html' %}
+{% block main %}
+        <!-- Start Bradcaump area -->
+        <div class="ht__bradcaump__area bg-image--6">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="bradcaump__inner text-center">
+                        	<h2 class="bradcaump-title">My Account</h2>
+                            <nav class="bradcaump-content">
+                              <a class="breadcrumb_item" href="index.html">Home</a>
+                              <span class="brd-separetor">/</span>
+                              <span class="breadcrumb_item active">My Account</span>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Bradcaump area -->
+		<!-- Start My Account Area -->
+		<section class="my_account_area pt--80 pb--55 bg--white">
+			<div class="container">
+				<div class="row">
+                    <div class="col-lg-4 col-md-2 col-sm-12"></div>
+					<div class="col-lg-4 col-md-8 col-sm-12">
+						<div class="my__account__wrapper">
+							<h3 class="account__title">Cadastro</h3>
+							<form method="post">
+                                {% csrf_token %}
+                                {% if form.errors %}
+                                    <div class="alert alert-error">
+                                        <ul>
+                                            {% for field in form %}
+                                                {% if field.errors %}
+                                                    {% for error in field.errors %}
+                                                        <li>{{ field.name }}</li>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                        {% if form.non_field_errors %}
+                                            {{ form.non_field_errors }}
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+								<div class="account__form">
+									<div class="input__box">
+										{{ form.username.label_tag }}
+                                        {{ form.username }}
+									</div>
+									<div class="input__box">
+										{{ form.email.label_tag }}
+                                        {{ form.email }}
+									</div>
+                                    <div class="input__box">
+										{{ form.password1.label_tag }}
+                                        {{ form.password1 }}
+									</div>
+                                    <div class="input__box">
+										{{ form.password2.label_tag }}
+                                        {{ form.password2 }}
+									</div>
+									<div class="form__btn">
+										<button>Cadastrar-se</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+                    <div class="col-lg-4 col-md-2 col-sm-12"></div>
+				</div>
+			</div>
+		</section>
+		<!-- End My Account Area -->
+		<!-- Footer Area -->
+		<footer id="wn__footer" class="footer__area bg__cat--8 brown--color">
+			<div class="footer-static-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="footer__widget footer__menu">
+								<div class="ft__logo">
+									<a href="index.html">
+										<img src="images/logo/3.png" alt="logo">
+									</a>
+									<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered duskam alteration variations of passages</p>
+								</div>
+								<div class="footer__content">
+									<ul class="social__net social__net--2 d-flex justify-content-center">
+										<li><a href="#"><i class="bi bi-facebook"></i></a></li>
+										<li><a href="#"><i class="bi bi-google"></i></a></li>
+										<li><a href="#"><i class="bi bi-twitter"></i></a></li>
+										<li><a href="#"><i class="bi bi-linkedin"></i></a></li>
+										<li><a href="#"><i class="bi bi-youtube"></i></a></li>
+									</ul>
+									<ul class="mainmenu d-flex justify-content-center">
+										<li><a href="index.html">Trending</a></li>
+										<li><a href="index.html">Best Seller</a></li>
+										<li><a href="index.html">All Product</a></li>
+										<li><a href="index.html">Wishlist</a></li>
+										<li><a href="index.html">Blog</a></li>
+										<li><a href="index.html">Contact</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="copyright__wrapper">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-sm-12">
+							<div class="copyright">
+								<div class="copy__right__inner text-left">
+									<p>Copyright <i class="fa fa-copyright"></i> <a href="https://freethemescloud.com/">Free themes Cloud.</a> All Rights Reserved</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-12">
+							<div class="payment text-right">
+								<img src="images/icons/payment.png" alt="" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!-- //Footer Area -->
+{% endblock %}

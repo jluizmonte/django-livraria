@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+{% block title %}deleção de gêneros de livros{{% endblock %}
+{% block main %}
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4" style="margin-top: 25%">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <p>Confirma a deleção do Gênero literário {{ object }}?</p>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <button type="submit" class="btn btn-danger">Deletar</button>
+                    </div>
+                    <div class="col-4">
+                        {% if request.META.HTTP_REFERER %}
+                            <a href="{{request.META.HTTP_REFERER}}" class="btn btn-primary">Voltar</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-4"></div>
+    </div>
+{% endblock %}

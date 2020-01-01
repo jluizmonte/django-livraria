@@ -1,0 +1,58 @@
+{% extends 'base/architectui.html' %}
+{% block main %}
+    <div class="app-main__inner">
+        <div class="app-page-title">
+            <div class="page-title-wrapper">
+                <div class="page-title-heading">
+                    <div class="page-title-icon">
+                        <i class="pe-7s-users text-success">
+                        </i>
+                    </div>
+                    <div>Detalhes da conta</div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+                <div class="main-card mb-3 card">
+                    <div class="card-body"><h5 class="card-title">Detalhes do usuário {{ object.username }}</h5>
+                        <form method="post" class="">
+                            {% csrf_token %}
+                            <div class="form-row" style="margin-top: 2%">
+                                <div class="col-lg-12 col-md-6 col-sm-6">
+                                    <label for="id_username">Username</label>
+                                    <input type="text" class="form-control" id="id_username" value="{{ object.username }}" readonly>
+                                </div>
+                                <div class="col-lg-12 col-md-6 col-sm-6">
+                                    <label for="id_email">E-mail</label>
+                                    <input type="text" class="form-control" id="id_email" value="{{ object.email }}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row" style="margin-top: 2%">
+                                <div class="col-lg-12 col-md-6 col-sm-6">
+                                    <label for="id_user_type">Tipo de usuário</label>
+                                    <input type="text" class="form-control" id="id_user_type" value="{% if object.is_superuser %}Administrador{% elif object.is_staff %}Funcionário{% else %}Usuário{% endif %}" readonly>
+                                </div>
+                                <div class="col-lg-12 col-md-6 col-sm-6">
+                                    <label for="id_joined">Data de cadastro</label>
+                                    <input type="text" class="form-control" id="id_joined" value="{{ object.date_joined }}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row" style="margin-top: 2%">
+                                <div class="col-lg-12 col-md-6 col-sm-6">
+                                    <label for="id_last_login">Último acesso</label>
+                                    <input type="text" class="form-control" id="id_last_login" value="{{ object.last_login }}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row" style="margin-top: 2%">
+                                {% if request.META.HTTP_REFERER %}
+                                    <a href="{{request.META.HTTP_REFERER}}" class="btn btn-primary">Voltar</a>
+                                {% endif %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

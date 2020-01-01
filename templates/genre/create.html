@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+{% block title %}cadastro de gêneros de livros{% endblock %}
+{% block main %}
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4" style="margin-top: 23%">
+            <form method="post">
+                {% csrf_token %}
+                <span style="color: red">{{ form.non_field_errors }}</span>
+                <div class="form-group">
+                    {{ form.descricao.label_tag }}
+                    {{ form.descricao }}
+                    <span style="color: red">{{ form.descricao.errors }}</span>
+                </div>
+                <button type="submit" class="btn btn-success">Salvar</button>
+            </form>
+        </div>
+        <div class="col-4"></div>
+    </div>
+{% endblock %}
