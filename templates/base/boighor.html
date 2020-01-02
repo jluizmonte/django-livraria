@@ -60,7 +60,7 @@
                                                 <li class="label2"><a href="portfolio.html">My Account</a>
                                                     <ul>
                                                         <li><a href="{% url 'user-create' %}">Cadastro</a></li>
-                                                        <li><a href="{% url 'login' %}">Login</a></li>
+                                                        <li><a href="{% url 'account_login' %}">Login</a></li>
                                                     </ul>
                                                 </li>
                                                 <li><a href="cart.html">Cart Page</a></li>
@@ -140,7 +140,7 @@
                                                 <li class="label2"><a href="portfolio.html">My Account</a>
                                                     <ul>
                                                         <li><a href="{% url 'user-create' %}">Cadastro</a></li>
-                                                        <li><a href="{% url 'login' %}">Login</a></li>
+                                                        <li><a href="{% url 'account_login' %}">Login</a></li>
                                                     </ul>
                                                 </li>
                                                 <li><a href="cart.html">Cart Page</a></li>
@@ -305,10 +305,13 @@
                                                     <div class="switcher-currency-trigger">
                                                         <div class="setting__menu">
                                                             {% if user.is_authenticated %}
-                                                                <span><a href="{% url 'logout' %}">Logout</a></span>
+                                                                <span><a href="{% url 'account_logout' %}">Logout</a></span>
+                                                                {% if user.is_superuser or user.is_staff %}
+                                                                    <span><a href="{% url 'administrative' %}">Painel administrativo</a></span>
+                                                                {% endif %}
                                                             {% else %}
                                                                 <span><a href="{% url 'user-create' %}">Cadastro</a></span>
-                                                                <span><a href="{% url 'login' %}">Login</a></span>
+                                                                <span><a href="{% url 'account_login' %}">Login</a></span>
                                                             {% endif %}
                                                         </div>
                                                     </div>
@@ -338,7 +341,7 @@
                                             <li class="label2"><a href="portfolio.html">My Account</a>
                                                 <ul>
                                                     <li><a href="{% url 'user-create' %}">Cadastro</a></li>
-                                                    <li><a href="{% url 'login' %}">Login</a></li>
+                                                    <li><a href="{% url 'account_login' %}">Login</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="cart.html">Cart Page</a></li>
