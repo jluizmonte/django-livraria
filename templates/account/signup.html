@@ -25,8 +25,8 @@
                     <div class="col-lg-4 col-md-2 col-sm-12"></div>
 					<div class="col-lg-4 col-md-8 col-sm-12">
 						<div class="my__account__wrapper">
-							<h3 class="account__title">Login</h3>
-							<form method="post" action="{% url 'login' %}" >
+							<h3 class="account__title">Cadastro</h3>
+							<form method="post">
                                 {% csrf_token %}
                                 {% if form.errors %}
                                     <div class="alert alert-error">
@@ -46,17 +46,16 @@
                                 {% endif %}
 								<div class="account__form">
 									<div class="input__box">
-										{{ form.username.label_tag }}
-                                        {{ form.username }}
+										{{ form.email.label_tag }}
+                                        {{ form.email }}
 									</div>
-									<div class="input__box">
-										{{ form.password.label_tag }}
-                                        {{ form.password }}
+                                    <div class="input__box">
+										{{ form.password1.label_tag }}
+                                        {{ form.password1 }}
 									</div>
 									<div class="form__btn">
-										<button type="submit">Login</button>
+										<button>Cadastrar-se</button>
 									</div>
-									<a class="forget_pass" href="#">Lost your password?</a>
 								</div>
 							</form>
 						</div>
