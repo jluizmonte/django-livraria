@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from decouple import config
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,6 +44,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'apps.authentication',
+
+    #personal applications
     'apps.user',
     'apps.genre',
     'apps.author',
@@ -147,9 +151,9 @@ MEDIA_ROOT = str(base_dir_join('media'))
 MEDIA_URL = '/media/'
 
 
-LOGIN_REDIRECT_URL = 'administrative'
+LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
-LOGOUT_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'main'
 
 
 AUTHENTICATION_BACKENDS = (
@@ -169,3 +173,14 @@ ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_UNIQUE_EMAIL = True
+
+
+
+#email configuration
+SENDGRID_API_KEY = config('SENDGRID_API_KEY')
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+EMAIL_PORT = 587
+EMAIL_USE_TLS = False
