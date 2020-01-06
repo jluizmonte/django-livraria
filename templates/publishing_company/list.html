@@ -1,49 +1,108 @@
-{% extends 'base/base.html' %}
-{% block title %} lista de editoras{% endblock %}
-{% block css %}
-    <script src="https://kit.fontawesome.com/ba15eb223d.js" crossorigin="anonymous"></script>
-{% endblock %}
+{% extends 'base/architectui.html' %}
 {% block main %}
-    <div class="row" style="margin-top: 10%">
-        <div class="col-2"></div>
-        <div class="col-8">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Descrição</th>
-                        <th scope="col"><a href="{% url 'publishing-company-create' %}"><i class="fas fa-user-plus"></i></a></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for editora in page_obj %}
-                        <tr>
-                            <td>{{editora.name}}</td>
-                            <td>
-                                <a href="{% url 'publishing-company-detail' editora.pk %}"><i class="fas fa-info-circle" style="margin-right: 10px"></i></a>
-                                <a href="{% url 'publishing-company-delete' editora.pk %}"><i class="fas fa-user-minus" style="margin-right: 10px"></i></a>
-                                <a href="{% url 'publishing-company-update' editora.pk %}"><i class="fas fa-user-edit"></i></a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            {% if page_obj.has_other_pages %}
-                <ul class="pagination justify-content-center">
-                    {% if page_obj.has_previous %}
-                        <li class="page-item"><a class="page-link" href="?page=1">&laquo; Primeira</a></li>
-                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
-                    {% endif %}
-                    <li class="page-item active" aria-current="page">
-                        <a class="page-link">{{ page_obj.number }}<span class="sr-only">(atual)</span></a>
-                    </li>
-
-                    {% if page_obj.has_next %}
-                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
-                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a></li>
-                    {% endif %}
-                </ul>
-            {% endif %}
+    <div class="app-main__inner">
+        <div class="app-page-title">
+            <div class="page-title-wrapper">
+                <div class="page-title-heading">
+                    <div class="page-title-icon">
+                        <i class="pe-7s-note icon-gradient bg-happy-itmeo">
+                        </i>
+                    </div>
+                    <div>Editoras
+                        <div class="page-title-subheading">Lista de editoras
+                        </div>
+                    </div>
+                </div>
+                <div class="page-title-actions">
+                    <a href="{% url 'publishing-company-create' %}">
+                        <button type="button" data-toggle="tooltip" title="Adicionar usuário" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark">
+                            <i class="pe-7s-plus"></i>
+                        </button>
+                    </a>
+                    <div class="d-inline-block dropdown">
+                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a href="javascript:void(0);" class="nav-link">
+                                        <i class="nav-link-icon lnr-inbox"></i>
+                                        <span>
+                                                            Inbox
+                                                        </span>
+                                        <div class="ml-auto badge badge-pill badge-secondary">86</div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="javascript:void(0);" class="nav-link">
+                                        <i class="nav-link-icon lnr-book"></i>
+                                        <span>
+                                                            Book
+                                                        </span>
+                                        <div class="ml-auto badge badge-pill badge-danger">5</div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="javascript:void(0);" class="nav-link">
+                                        <i class="nav-link-icon lnr-picture"></i>
+                                        <span>
+                                                            Picture
+                                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a disabled href="javascript:void(0);" class="nav-link disabled">
+                                        <i class="nav-link-icon lnr-file-empty"></i>
+                                        <span>
+                                                            File Disabled
+                                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>    </div>
         </div>
-        <div class="col-2"></div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-card mb-3 card">
+                    <div class="card-body"><h5 class="card-title">Tabela de editoras</h5>
+                        <table class="mb-0 table">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for editora in page_obj %}
+                                    <tr>
+                                        <td>{{editora.name}}</td>
+                                        <td>
+                                            <a href="{% url 'publishing-company-detail' editora.pk %}"><i class="fas fa-info-circle" style="margin-right: 10px"></i></a>
+                                            <a href="{% url 'publishing-company-delete' editora.pk %}"><i class="fas fa-user-minus" style="margin-right: 10px"></i></a>
+                                            <a href="{% url 'publishing-company-update' editora.pk %}"><i class="fas fa-user-edit"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% if page_obj.has_other_pages %}
+                            <ul class="pagination justify-content-center">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item"><a class="page-link" href="?page=1">&laquo; Primeira</a></li>
+                                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
+                                {% endif %}
+                                <li class="page-item active" aria-current="page">
+                                    <a class="page-link">{{ page_obj.number }}<span class="sr-only">(atual)</span></a>
+                                </li>
+                                {% if page_obj.has_next %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+                                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a></li>
+                                {% endif %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
