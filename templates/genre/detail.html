@@ -1,19 +1,38 @@
-{% extends 'base/base.html' %}
-{% block title %}detalhe de gênero{% endblock %}
+{% extends 'base/architectui.html' %}
 {% block main %}
-    <div class="row">
-        <div class="col-4"></div>
-        <div class="col-4" style="margin-top: 23%">
-            <form>
-                <div class="form-group">
-                    <label for="id_name">Nome</label>
-                    <input type="text" class="form-control" id="id_username" value="{{ object.descricao }}" readonly>
+    <div class="app-main__inner">
+        <div class="app-page-title">
+            <div class="page-title-wrapper">
+                <div class="page-title-heading">
+                    <div class="page-title-icon">
+                        <i class="pe-7s-ticket text-success">
+                        </i>
+                    </div>
+                    <div>Detalhes do gênero de livros</div>
                 </div>
-                {% if request.META.HTTP_REFERER %}
-                    <a href="{{request.META.HTTP_REFERER}}" class="btn btn-primary">Voltar</a>
-                {% endif %}
-            </form>
+            </div>
         </div>
-        <div class="col-4"></div>
+        <div class="tab-content">
+            <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+                <div class="main-card mb-3 card">
+                    <div class="card-body"><h5 class="card-title">Detalhes do gênero {{ object.descricao }}</h5>
+                        <form method="post" class="">
+                            {% csrf_token %}
+                            <div class="form-row" style="margin-top: 2%">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <label for="id_username">Descrição</label>
+                                    <input type="text" class="form-control" id="id_username" value="{{ object.descricao }}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row" style="margin-top: 2%">
+                                {% if request.META.HTTP_REFERER %}
+                                    <a href="{{request.META.HTTP_REFERER}}" class="btn btn-primary">Voltar</a>
+                                {% endif %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

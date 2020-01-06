@@ -1,6 +1,8 @@
+from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from .forms import UserCreationFormWithEmail, UserUpdateForm, UserCreationFormAdmin
 
@@ -37,6 +39,10 @@ class UserListView(ListView):
     model = User
     paginate_by = 10
 
+    @method_decorator(user_passes_test(lambda u: u.is_superuser or u.is_staff, login_url='/dashboard/'))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
 
 class UserUpdateView(UpdateView):
     template_name = 'user/update.html'
@@ -52,6 +58,10 @@ class UserUpdateView(UpdateView):
         form_class.base_fields['email'].widget.attrs['class'] = 'form-control'
         return form_class(**self.get_form_kwargs())
 
+    @method_decorator(user_passes_test(lambda u: u.is_superuser or u.is_staff, login_url='/dashboard/'))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
 
 class UserDeleteView(DeleteView):
     template_name = 'user/delete.html'
@@ -60,8 +70,16 @@ class UserDeleteView(DeleteView):
     def get_success_url(self):
         return reverse('user-list')
 
+    @method_decorator(user_passes_test(lambda u: u.is_superuser or u.is_staff, login_url='/dashboard/'))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
 
 class UserDetailView(UpdateView):
     template_name = 'user/detail.html'
     model = User
     form_class = UserUpdateForm
+
+    @method_decorator(user_passes_test(lambda u: u.is_superuser or u.is_staff, login_url='/dashboard/'))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
