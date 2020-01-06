@@ -73,13 +73,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for descricao in page_obj %}
+                                {% for genero in page_obj %}
                                     <tr>
-                                        <td>{{descricao.descricao}}</td>
+                                        <td>{{genero.descricao}}</td>
                                         <td>
-                                            <a href="{% url 'genre-detail' user.pk %}"><i class="fas fa-info-circle" style="margin-right: 10px"></i></a>
-                                            <a href="{% url 'genre-delete' user.pk %}"><i class="fas fa-user-minus" style="margin-right: 10px"></i></a>
-                                            <a href="{% url 'genre-update' user.pk %}"><i class="fas fa-user-edit"></i></a>
+                                            <a href="{% url 'genre-detail' genero.pk %}"><i class="fas fa-info-circle" style="margin-right: 10px"></i></a>
+                                            <a href="{% url 'genre-delete' genero.pk %}"><i class="fas fa-user-minus" style="margin-right: 10px"></i></a>
+                                            <a href="{% url 'genre-update' genero.pk %}"><i class="fas fa-user-edit"></i></a>
                                         </td>
                                     </tr>
                                 {% endfor %}
