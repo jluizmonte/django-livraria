@@ -12,4 +12,4 @@ urlpatterns = [
     path('livro/', include('apps.book.urls')),
     path('editora/', include('apps.publishing_company.urls')),
     path('', include('apps.home.urls')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
