@@ -646,6 +646,12 @@
                         Autores
                     </a>
                 </li>
+                <li>
+                    <a href="{% url 'book-list' %}">
+                        <i class="metismenu-icon pe-7s-notebook"></i>
+                        Livros
+                    </a>
+                </li>
                 <li class="app-sidebar__heading">Forms</li>
                 <li>
                     <a href="forms-controls.html">
@@ -729,5 +735,7 @@
 </div>
 </div>
     <script type="text/javascript" src="/static/architectui/scripts/main.js"></script>
+    {% block js %}
+    {% endblock %}
 </body>
 </html>
