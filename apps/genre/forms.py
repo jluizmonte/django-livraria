@@ -12,5 +12,6 @@ class GenreForm(forms.ModelForm):
         super(GenreForm, self).__init__(*args, **kwargs)
 
         self.fields['descricao'].widget.attrs['class'] = 'form-control'
+        self.fields['link'].widget.attrs['class'] = 'form-control'
 
 
