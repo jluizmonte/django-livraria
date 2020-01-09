@@ -2,8 +2,8 @@ from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmVie
 
 
 class CustomPasswordResetView(PasswordResetView):
-    html_email_template_name = 'email/password_reset_email.html'
-    from_email = 'livraria@django.com'
+    html_email_template_name = 'authentication/password_reset_email.html'
+    from_email = 'noreply@g3solutions.com.br'
     title = 'Alteração de senha'
     template_name = 'account/password_reset_form.html'
 

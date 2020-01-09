@@ -1,6 +1,10 @@
-from django.urls import path
-
+from django.urls import path, include
 from .views import GenreCreate, GenreList, GenreDetail, GenreUpdate, GenreDelete
+from rest_framework import routers
+from apps.genre.api.viewsets import LinkListViewset
+
+router = routers.DefaultRouter()
+router.register('listas', LinkListViewset),
 
 
 urlpatterns = [
@@ -9,4 +13,5 @@ urlpatterns = [
     path('detalhes/<int:pk>/', GenreDetail.as_view(), name='genre-detail'),
     path('atualizacao/<int:pk>/', GenreUpdate.as_view(), name='genre-update'),
     path('delecao/<int:pk>/', GenreDelete.as_view(), name='genre-delete'),
+    path('api/', include(router.urls)),
 ]

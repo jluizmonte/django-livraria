@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.views.generic import CreateView, ListView, UpdateView, DetailView, DeleteView
 from django.contrib.auth.decorators import user_passes_test
 from django.urls import reverse
@@ -28,6 +29,23 @@ class BookList(ListView):
     @method_decorator(user_passes_test(lambda u: u.is_superuser, login_url='/dashboard/'))
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
+
+
+class BookListSlug(ListView):
+    model = Book
+    template_name = 'book/list.html'
+    paginate_by = 10
+
+    @method_decorator(user_passes_test(lambda u: u.is_superuser, login_url='/dashboard/'))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        slug = self.kwargs.get('slug')
+        instance = Book.objects.filter(genre__link=slug)
+        if len(instance) == 0:
+            raise Http404("Não encontrado!")
+        return instance
 
 
 class BookDetail(DetailView):
