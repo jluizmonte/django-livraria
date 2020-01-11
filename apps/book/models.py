@@ -15,7 +15,7 @@ class Book(models.Model):
     author = models.ManyToManyField(Author, verbose_name="Autor")
     name = models.CharField(max_length=200, verbose_name="Nome")
     description = models.TextField(verbose_name='Descrição')
-    capa = models.ImageField(verbose_name='Imagem da capa', upload_to='capa/')
+    book_cover = models.ImageField(verbose_name='Imagem da capa', upload_to='capa/')
     price = models.DecimalField(max_digits=5, decimal_places=2, verbose_name="Preço")
 
     def __str__(self):

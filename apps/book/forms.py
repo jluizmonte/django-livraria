@@ -21,7 +21,7 @@ class BookForm(forms.ModelForm):
         self.fields['genre'].widget.attrs['class'] = 'form-control'
         self.fields['name'].widget.attrs['class'] = 'form-control'
         self.fields['description'].widget.attrs['class'] = 'form-control'
-        self.fields['capa'].widget.attrs['class'] = 'form-control'
+        self.fields['book_cover'].widget.attrs['class'] = 'form-control'
         self.fields['publishing_company'].widget.attrs['class'] = 'form-control'
         self.fields['price'].widget.attrs['class'] = 'form-control money'
 

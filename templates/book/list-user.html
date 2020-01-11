@@ -1,0 +1,61 @@
+﻿{% extends 'base/boighor.html' %}
+{% block main %}
+        <!-- Start Bradcaump area -->
+        <div class="ht__bradcaump__area bg-image--5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="bradcaump__inner text-center">
+                        	<h2 class="bradcaump-title">Wishlist</h2>
+                            <nav class="bradcaump-content">
+                              <a class="breadcrumb_item" href="index.html">Home</a>
+                              <span class="brd-separetor">/</span>
+                              <span class="breadcrumb_item active">Wishlist</span>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Bradcaump area -->
+        <!-- cart-main-area start -->
+        <div class="wishlist-area section-padding--lg bg__white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="wishlist-content">
+                            <form action="#">
+                                <div class="wishlist-table wnro__table table-responsive">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th class="product-remove"></th>
+                                                <th class="product-thumbnail"></th>
+                                                <th class="product-name"><span class="nobr">Nome</span></th>
+                                                <th class="product-price"><span class="nobr"> Preço unitário </span></th>
+{#                                                <th class="product-stock-stauts"><span class="nobr"> Stock Status </span></th>#}
+                                                <th class="product-add-to-cart"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for book in object_list %}
+                                                <tr>
+                                                    <td class="product-remove"><a href="#">×</a></td>
+                                                    <td class="product-thumbnail"><a href="#"><img src="{{ book.book_cover.url }}" alt="capa do livro {{ book.name }}" style="height: 100px"></a></td>
+                                                    <td class="product-name"><a href="#">{{ book.name }}</a></td>
+                                                    <td class="product-price"><span class="amount">R${{ book.price }}</span></td>
+{#                                                    <td class="product-stock-status"><span class="wishlist-in-stock">In Stock</span></td>#}
+                                                    <td class="product-add-to-cart"><a href="#"><i class="fas fa-cart-plus fa-2x"></i></a></td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>  
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- cart-main-area end -->
+{% endblock %}
