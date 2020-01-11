@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, RedirectView
+from apps.book.models import Book
 
 
 class Administrative(TemplateView):
@@ -15,6 +16,12 @@ class Administrative(TemplateView):
 
 class Main(TemplateView):
     template_name = 'home/user.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        queryset = Book.objects.all().order_by('-id')[:30]
+        context['books'] = reversed(queryset)
+        return context
 
 
 class Home(RedirectView):

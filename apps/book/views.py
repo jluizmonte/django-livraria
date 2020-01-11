@@ -33,10 +33,9 @@ class BookList(ListView):
 
 class BookListSlug(ListView):
     model = Book
-    template_name = 'book/list.html'
+    template_name = 'book/list-user.html'
     paginate_by = 10
 
-    @method_decorator(user_passes_test(lambda u: u.is_superuser, login_url='/dashboard/'))
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
 
