@@ -1,3 +1,4 @@
+from allauth.account.views import LoginView
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -13,4 +14,5 @@ urlpatterns = [
     path('livro/', include('apps.book.urls')),
     path('editora/', include('apps.publishing_company.urls')),
     path('', include('apps.home.urls')),
+    path('accounts/login/', LoginView.as_view(), name='account_login')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

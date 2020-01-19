@@ -1,4 +1,5 @@
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordResetDoneView, PasswordResetCompleteView
+from allauth.account.views import EmailVerificationSentView
 
 
 class CustomPasswordResetView(PasswordResetView):
@@ -18,3 +19,7 @@ class CustomPasswordResetDoneView(PasswordResetDoneView):
 
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'account/password_reset_complete.html'
+
+
+class customEmailVerificationSentView(EmailVerificationSentView):
+    pass
