@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.http import Http404
 from django.views.generic import CreateView, ListView, UpdateView, DetailView, DeleteView
 from django.contrib.auth.decorators import user_passes_test
@@ -79,3 +80,18 @@ class BookDelete(DeleteView):
 
     def get_success_url(self):
         return reverse('book-list')
+
+
+class BookSearchList(ListView):
+    model = Book
+    template_name = 'book/list-user.html'
+    paginate_by = 10
+
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        instance = Book.objects.filter(Q(name__contains=self.request.GET.get('parametro')) | Q(author__name__contains=self.request.GET.get('parametro')) | Q(genre__descricao__contains=self.request.GET.get('parametro')))
+        if len(instance) == 0:
+            raise Http404("Não encontrado!")
+        return instance

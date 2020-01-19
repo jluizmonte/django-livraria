@@ -17,7 +17,7 @@ class GenreCreate(CreateView):
         return super().dispatch(*args, **kwargs)
 
     def get_success_url(self):
-        return reverse('genre-list')
+        return reverse('genre-list-admin')
 
 
 class GenreList(ListView):
@@ -49,7 +49,7 @@ class GenreUpdate(UpdateView):
         return super().dispatch(*args, **kwargs)
 
     def get_success_url(self):
-        return reverse('genre-list')
+        return reverse('genre-list-admin')
 
 
 class GenreDelete(DeleteView):
@@ -61,4 +61,4 @@ class GenreDelete(DeleteView):
         return super().dispatch(*args, **kwargs)
 
     def get_success_url(self):
-        return reverse('genre-list')
+        return reverse('genre-list-admin')

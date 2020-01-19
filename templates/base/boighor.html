@@ -27,7 +27,7 @@
 	<!-- Modernizer js -->
 	<script src="/static/boighor/js/vendor/modernizr-3.5.0.min.js"></script>
 
-    <-- font awesome -->
+    <!-- font awesome -->
     {% include 'includes/keys/font awesome.html' %}
 </head>
 <body>
@@ -41,9 +41,9 @@
         <!-- //Header -->
         <!-- Start Search Popup -->
 		<div class="brown--color box-search-content search_active block-bg close__top">
-			<form id="search_mini_form" class="minisearch" action="#">
+			<form id="search_mini_form" class="minisearch" action="{% url 'book-search' %}">
 				<div class="field__search">
-					<input type="text" placeholder="Search entire store here...">
+					<input type="text" placeholder="Busque por autores, livros ou categorias" name="parametro">
 					<div class="action">
 						<a href="#"><i class="zmdi zmdi-search"></i></a>
 					</div>

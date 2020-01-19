@@ -133,3 +133,6 @@ dmypy.json
 
 #chaves
 templates/includes/keys
+
+#imagens
+media/
