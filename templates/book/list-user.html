@@ -45,7 +45,7 @@
                                                     <td class="product-name"><a href="#">{{ book.name }}</a></td>
                                                     <td class="product-price"><span class="amount">R${{ book.price }}</span></td>
 {#                                                    <td class="product-stock-status"><span class="wishlist-in-stock">In Stock</span></td>#}
-                                                    <td class="product-add-to-cart"><a href="#"><i class="fas fa-cart-plus fa-2x"></i></a></td>
+                                                    <td class="product-add-to-cart"><a href="{% url 'shopping-cart-add' book.pk %}"><i class="fas fa-cart-plus fa-2x"></i></a></td>
                                                 </tr>
                                             {% endfor %}
                                         </tbody>
