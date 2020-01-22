@@ -28,7 +28,7 @@
                         <li class="wishlist"><a href="#"></a></li>
                     {% endif %}
                     {% if user.is_authenticated %}
-                        <li class="shopcart"><a class="cartbox_active" href="#"><span class="product_qun">3</span></a>
+                        <li class="shopcart"><a class="cartbox_active" href="#"><span class="product_qun"></span></a>
                         <!-- Start Shopping Cart -->
                         <div class="block-minicart minicart__active">
                             <div class="minicart-content-wrapper">
@@ -36,65 +36,18 @@
                                     <span>close</span>
                                 </div>
                                 <div class="items-total d-flex justify-content-between">
-                                    <span>3 items</span>
-                                    <span>Cart Subtotal</span>
+                                    <span id="shopping_cart_count"></span>
+                                    <span>Subtotal</span>
                                 </div>
                                 <div class="total_amount text-right">
-                                    <span>$66.00</span>
+                                    <span id="shopping_cart_subtotal"></span>
                                 </div>
                                 <div class="mini_action checkout">
                                     <a class="checkout__btn" href="cart.html">Go to Checkout</a>
                                 </div>
                                 <div class="single__items">
-                                    <div class="miniproduct">
-                                        <div class="item01 d-flex">
-                                            <div class="thumb">
-                                                <a href="product-details.html"><img src="/static/boighor/images/product/sm-img/1.jpg" alt="product images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h6><a href="product-details.html">Voyage Yoga Bag</a></h6>
-                                                <span class="prize">$30.00</span>
-                                                <div class="product_prize d-flex justify-content-between">
-                                                    <span class="qun">Qty: 01</span>
-                                                    <ul class="d-flex justify-content-end">
-                                                        <li><a href="#"><i class="zmdi zmdi-settings"></i></a></li>
-                                                        <li><a href="#"><i class="zmdi zmdi-delete"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="item01 d-flex mt--20">
-                                            <div class="thumb">
-                                                <a href="product-details.html"><img src="/static/boighor/images/product/sm-img/3.jpg" alt="product images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h6><a href="product-details.html">Impulse Duffle</a></h6>
-                                                <span class="prize">$40.00</span>
-                                                <div class="product_prize d-flex justify-content-between">
-                                                    <span class="qun">Qty: 03</span>
-                                                    <ul class="d-flex justify-content-end">
-                                                        <li><a href="#"><i class="zmdi zmdi-settings"></i></a></li>
-                                                        <li><a href="#"><i class="zmdi zmdi-delete"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="item01 d-flex mt--20">
-                                            <div class="thumb">
-                                                <a href="product-details.html"><img src="/static/boighor/images/product/sm-img/2.jpg" alt="product images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h6><a href="product-details.html">Compete Track Tote</a></h6>
-                                                <span class="prize">$40.00</span>
-                                                <div class="product_prize d-flex justify-content-between">
-                                                    <span class="qun">Qty: 03</span>
-                                                    <ul class="d-flex justify-content-end">
-                                                        <li><a href="#"><i class="zmdi zmdi-settings"></i></a></li>
-                                                        <li><a href="#"><i class="zmdi zmdi-delete"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="miniproduct" id="container-itens">
+
                                     </div>
                                 </div>
                                 <div class="mini_action cart">
@@ -192,6 +145,7 @@
 <script>
     (function() {
         BookGenreMenu()
+        ShoppingCart()
     })();
 
     function BookGenreMenu(){
@@ -208,5 +162,54 @@
                 _list[i].innerHTML += `<li><a href="${_schema}://${_domain}/livro/lista/${obj.link}/">${ obj.descricao }</a></li>`
             }
         });
+    }
+
+    function ShoppingCart(){
+        let Httpreq = new XMLHttpRequest();
+        Httpreq.open("GET","http://127.0.0.1:8000/api/carrinho/",false);
+        Httpreq.send(null);
+        const _json = Httpreq.responseText;
+        const _object = JSON.parse(_json);
+        const _count = document.getElementById('shopping_cart_count')
+        const _subtotal = document.getElementById('shopping_cart_subtotal')
+        const _count_template = document.getElementsByClassName('product_qun')
+
+        _count_template[0].innerHTML = _object[0]['book__count']
+
+        if(_object[0]['book__count'] > 1){
+            _count.innerHTML = _object[0]['book__count']+ ' itens'
+        }else {
+            _count.innerHTML = _object[0]['book__count']+ ' item'
+        }
+
+        _subtotal.innerHTML = 'R$'+_object[0]['book__price__sum']
+
+        GenerateShoppingCartItens(_object[0]['book'])
+    }
+
+    function GenerateShoppingCartItens(books) {
+        const _container = document.getElementById('container-itens')
+        books.forEach(function(book) {
+            _container.innerHTML +=`
+                 <div class="item01 d-flex mt--20">
+                   <div class="thumb">
+                    <a href="product-details.html"><img src="${book['book_cover']}" alt="product images"></a>
+                        </div>
+                            <div class="content">
+                                <h6><a href="product-details.html">${ book['name'] }</a></h6>
+                                 <span class="prize">R$${book['price']}</span>
+                                    <div class="product_prize d-flex justify-content-between">
+                                        <ul class="d-flex justify-content-end">
+                                            <li><a href="#"><i class="zmdi zmdi-settings"></i></a></li>
+                                             <li><a href="#"><i class="zmdi zmdi-delete"></i></a></li>
+                                        </ul>
+                                    </div>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        })
     }
 </script>

@@ -10,7 +10,7 @@ class ShoppingCartView(View):
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             if ShoppingCart.objects.filter(user=request.user).exists():
-                shoppingcart = ShoppingCart.objects.filter(user=request.user)
+                shoppingcart = ShoppingCart.objects.get(user=request.user)
                 if Book.objects.filter(pk=kwargs['book']).exists():
                     book = Book.objects.get(pk=kwargs['book'])
                     if not ShoppingCart.objects.filter(user=request.user, book=book).exists():
