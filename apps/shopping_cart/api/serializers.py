@@ -6,7 +6,7 @@ from rest_framework import serializers
 
 class ShoppingCartSerializer(ModelSerializer):
     book = BookSerializer(many=True, read_only=False)
-    book__price__sum = serializers.DecimalField(max_digits=4, decimal_places=2)
+    book__price__sum = serializers.DecimalField(max_digits=10, decimal_places=2)
     book__count = serializers.IntegerField()
 
     class Meta:
