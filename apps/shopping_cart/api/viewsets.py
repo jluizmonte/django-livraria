@@ -15,5 +15,5 @@ class ShoppingCartViewset(Detail):
     serializer_class = ShoppingCartSerializer
 
     def get_queryset(self):
-        query = ShoppingCart.objects.filter(user=self.request.user).annotate(Sum('book__price'))
+        query = ShoppingCart.objects.filter(user=self.request.user).annotate(Sum('book__price')).annotate(Count('book'))
         return query
