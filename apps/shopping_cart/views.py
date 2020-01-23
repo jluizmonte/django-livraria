@@ -29,3 +29,23 @@ class ShoppingCartView(View):
                     raise Http404
         else:
             return redirect(reverse('account_login'))
+
+
+class RemoveShoppingCartView(View):
+    def get(self, request, *args, **kwargs):
+        if kwargs['book']:
+            if request.user.is_authenticated:
+                if ShoppingCart.objects.filter(user=request.user).exists():
+                    shoppingcart = ShoppingCart.objects.get(user=request.user)
+                    book = Book.objects.get(pk=kwargs['book'])
+                    if ShoppingCart.objects.filter(user=request.user, book=book).exists():
+                        shoppingcart.book.remove(book)
+                        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+                    else:
+                        raise Http404
+                else:
+                    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+            else:
+                return redirect(reverse('account_login'))
+        else:
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
