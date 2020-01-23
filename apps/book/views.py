@@ -4,7 +4,6 @@ from django.views.generic import CreateView, ListView, UpdateView, DetailView, D
 from django.contrib.auth.decorators import user_passes_test
 from django.urls import reverse
 from django.utils.decorators import method_decorator
-
 from .models import Book
 from .forms import BookForm
 
@@ -55,6 +54,11 @@ class BookDetail(DetailView):
     @method_decorator(user_passes_test(lambda u: u.is_superuser, login_url='/dashboard/'))
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
+
+
+class BookDetailOut(DetailView):
+    model = Book
+    template_name = 'book/detail-user.html'
 
 
 class BookUpdate(UpdateView):

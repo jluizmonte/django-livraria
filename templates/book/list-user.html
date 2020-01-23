@@ -41,8 +41,8 @@
                                             {% for book in object_list %}
                                                 <tr>
                                                     <td class="product-remove"><a href="#">×</a></td>
-                                                    <td class="product-thumbnail"><a href="#"><img src="{{ book.book_cover.url }}" alt="capa do livro {{ book.name }}" style="height: 100px"></a></td>
-                                                    <td class="product-name"><a href="#">{{ book.name }}</a></td>
+                                                    <td class="product-thumbnail"><a href="{% url 'book-detail-out' book.pk %}"><img src="{{ book.book_cover.url }}" alt="capa do livro {{ book.name }}" style="height: 100px"></a></td>
+                                                    <td class="product-name"><a href="{% url 'book-detail-out' book.pk %}">{{ book.name }}</a></td>
                                                     <td class="product-price"><span class="amount">R${{ book.price }}</span></td>
 {#                                                    <td class="product-stock-status"><span class="wishlist-in-stock">In Stock</span></td>#}
                                                     <td class="product-add-to-cart"><a href="{% url 'shopping-cart-add' book.pk %}"><i class="fas fa-cart-plus fa-2x"></i></a></td>
