@@ -24,7 +24,7 @@ class AuthorList(ListView):
     model = Author
     template_name = 'author/list.html'
     paginate_by = 10
-    ordering = ['-id']
+    ordering = ['-pk']
 
     @method_decorator(user_passes_test(lambda u: u.is_superuser, login_url='/dashboard/'))
     def dispatch(self, *args, **kwargs):

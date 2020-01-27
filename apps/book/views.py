@@ -25,6 +25,7 @@ class BookList(ListView):
     model = Book
     template_name = 'book/list.html'
     paginate_by = 10
+    ordering = ['-pk']
 
     @method_decorator(user_passes_test(lambda u: u.is_superuser, login_url='/dashboard/'))
     def dispatch(self, *args, **kwargs):
