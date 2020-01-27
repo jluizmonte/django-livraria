@@ -13,7 +13,7 @@ router.register(r'carrinho', ShoppingCartViewset, basename='ShoppingCart'),
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('autenticacao/login/', LoginView.as_view(), name='account_login'),
+    path('accounts/login/', LoginView.as_view(), name='account_login'),
     path('autenticacao/', include('apps.authentication.urls')),
     path('usuario/', include('apps.user.urls')),
     path('genero/', include('apps.genre.urls')),
