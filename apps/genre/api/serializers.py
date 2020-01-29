@@ -5,4 +5,4 @@ from apps.genre.models import Genre
 class LinkSerializer(ModelSerializer):
     class Meta:
         model = Genre
-        fields = ['link', 'descricao']
+        fields = ['link', 'description']

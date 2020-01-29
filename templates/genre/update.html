@@ -20,9 +20,9 @@
                             {% csrf_token %}
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    {{ form.descricao.label_tag }}
-                                    {{ form.descricao }}
-                                    <span style="color: red">{{ form.descricao.errors }}</span>
+                                    {{ form.description.label_tag }}
+                                    {{ form.description }}
+                                    <span style="color: red">{{ form.description.errors }}</span>
                                     <span style="color: red">{{ form.non_field_errors }}</span>
                                 </div>
                                 <div class="col-md-6">

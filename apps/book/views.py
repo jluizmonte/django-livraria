@@ -96,7 +96,7 @@ class BookSearchList(ListView):
         return super().dispatch(*args, **kwargs)
 
     def get_queryset(self):
-        instance = Book.objects.filter(Q(name__contains=self.request.GET.get('parametro')) | Q(author__name__contains=self.request.GET.get('parametro')) | Q(genre__descricao__contains=self.request.GET.get('parametro')))
+        instance = Book.objects.filter(Q(name__contains=self.request.GET.get('parametro')) | Q(author__name__contains=self.request.GET.get('parametro')) | Q(genre__description__contains=self.request.GET.get('parametro')))
         if len(instance) == 0:
             raise Http404("Não encontrado!")
         return instance

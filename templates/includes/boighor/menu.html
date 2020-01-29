@@ -159,7 +159,7 @@
         const _schema = '{{ request.scheme | safe}}';
         _object.forEach(obj => {
             for(let i = 0; i < _list.length; i++){
-                _list[i].innerHTML += `<li><a href="${_schema}://${_domain}/livro/lista/${obj.link}/">${ obj.descricao }</a></li>`
+                _list[i].innerHTML += `<li><a href="${_schema}://${_domain}/livro/lista/${obj.link}/">${ obj.description }</a></li>`
             }
         });
     }

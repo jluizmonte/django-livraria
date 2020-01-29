@@ -75,7 +75,7 @@
                             <tbody>
                                 {% for genero in page_obj %}
                                     <tr>
-                                        <td>{{genero.descricao}}</td>
+                                        <td>{{genero.description}}</td>
                                         <td>
                                             <a href="{% url 'genre-detail' genero.pk %}"><i class="fas fa-info-circle" style="margin-right: 10px"></i></a>
                                             <a href="{% url 'genre-delete' genero.pk %}"><i class="fas fa-user-minus" style="margin-right: 10px"></i></a>
