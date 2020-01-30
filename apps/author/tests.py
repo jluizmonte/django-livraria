@@ -17,7 +17,7 @@ class AuthorTest(TestCase):
 
     def test_create_post(self):
         user = User.objects.create(username='joedoe', password='ArthurTuring', email='joedoe@admin.com', is_superuser=True)
-        genre = Genre.objects.create(descricao='Romance', link='romance')
+        genre = Genre.objects.create(description='Romance', link='romance')
         self.client.force_login(user)
         response = self.client.post(reverse('author-create'), {'genre': genre.pk, 'name': 'Jane Doe'})
         self.assertEquals(response.status_code, 302)
@@ -50,7 +50,7 @@ class AuthorTest(TestCase):
         user = User.objects.create(username='joedoe', password='ArthurTuring', email='joedoe@admin.com', is_superuser=True)
         self.client.force_login(user)
         Author.objects.create(name='Jane Doe')
-        genre = Genre.objects.create(descricao='Romance', link='romance')
+        genre = Genre.objects.create(description='Romance', link='romance')
         response = self.client.post(reverse('author-update', kwargs={'pk': 1}), {'genre': genre.pk, 'name': 'Joe Doe'})
         self.assertEquals(response.status_code, 302)
         self.assertEquals(response.url, reverse('author-list'))

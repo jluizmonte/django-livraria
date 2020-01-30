@@ -26,7 +26,7 @@ class BookTest(TestCase):
 
     def test_create_post(self):
         user = User.objects.create(username='joedoe', password='ArthurTuring', email='joedoe@admin.com', is_superuser=True)
-        genre = Genre.objects.create(descricao='Romance', link='romance')
+        genre = Genre.objects.create(description='Romance', link='romance')
         author = Author.objects.create(name='Jane Doe')
         publishing_company = PublishingCompany.objects.create(name='Verification')
         self.client.force_login(user)
@@ -64,7 +64,7 @@ class BookTest(TestCase):
     def test_update_post(self):
         user = User.objects.create(username='joedoe', password='ArthurTuring', email='joedoe@admin.com', is_superuser=True)
         self.client.force_login(user)
-        genre = Genre.objects.create(descricao='Romance', link='romance')
+        genre = Genre.objects.create(description='Romance', link='romance')
         author = Author.objects.create(name='Jane Doe')
         publishing_company = PublishingCompany.objects.create(name='Verification')
         Book.objects.create(name='Jane Doe', description='teste', price=10, book_cover=self.image)

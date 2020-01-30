@@ -62,9 +62,10 @@
 											</div>
         								</div>
 										<div class="product_meta">
-											<span class="posted_in">Categories:
-												<a href="#">Adventure</a>,
-												<a href="#">Kids' Music</a>
+											<span class="posted_in">Categorias:
+                                                {% for category in object.genre.all %}
+                                                    <a href="/livro/lista/{{ category.link }}">{{category}}</a>
+                                                {% endfor %}
 											</span>
 										</div>
 										<div class="product-share">
