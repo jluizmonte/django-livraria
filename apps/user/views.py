@@ -1,6 +1,5 @@
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User
-from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
@@ -38,6 +37,7 @@ class UserListView(ListView):
     template_name = 'user/list.html'
     model = User
     paginate_by = 10
+    ordering = ['-pk']
 
     @method_decorator(user_passes_test(lambda u: u.is_superuser or u.is_staff, login_url='/dashboard/'))
     def dispatch(self, *args, **kwargs):
