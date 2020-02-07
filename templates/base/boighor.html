@@ -29,6 +29,9 @@
 
     <!-- font awesome -->
     {% include 'includes/keys/font awesome.html' %}
+
+    <!--sweetalert-->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
     <!--[if lte IE 9]>
@@ -67,5 +70,23 @@
 	<script src="/static/boighor/js/bootstrap.min.js"></script>
 	<script src="/static/boighor/js/plugins.js"></script>
 	<script src="/static/boighor/js/active.js"></script>
+    <script>
+        const Message = (text, icon) => {
+            swal({
+                text: text,
+                icon: icon,
+                button: false,
+                timer: 3000,
+            })
+        }
+
+        (
+        {% if messages %}
+            {% for message in messages %}
+                Message('{{message}}', '{{ message.tags }}')
+            {% endfor %}
+        {% endif %}
+        )()
+    </script>
 </body>
 </html>

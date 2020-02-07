@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView, DetailView
 from .forms import UserCreationFormWithEmail, UserUpdateForm, UserCreationFormAdmin
 
 
@@ -75,7 +75,7 @@ class UserDeleteView(DeleteView):
         return super().dispatch(*args, **kwargs)
 
 
-class UserDetailView(UpdateView):
+class UserDetailView(DetailView):
     template_name = 'user/detail.html'
     model = User
     form_class = UserUpdateForm
