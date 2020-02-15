@@ -120,7 +120,7 @@
                                 <li><a href="team.html">Team Page</a></li>
                             </ul>
                         </li>
-                        <li><a href="shop-grid.html">Books</a>
+                        <li><a href="">Books</a>
                             <ul class="book-genre">
 
                             </ul>
@@ -147,13 +147,18 @@
         BookGenreMenu()
         ShoppingCart()
     })();
+    
+    function getData(url) {
+        let Httpreq = new XMLHttpRequest()
+        Httpreq.open("GET", url, false)
+        Httpreq.send(null)
+        const _json = Httpreq.responseText
+        const _object = JSON.parse(_json)
+        return _object
+    }
 
     function BookGenreMenu(){
-        let Httpreq = new XMLHttpRequest();
-        Httpreq.open("GET","http://127.0.0.1:8000/genero/api/listas/",false);
-        Httpreq.send(null);
-        const _json = Httpreq.responseText;
-        const _object = JSON.parse(_json);
+        const _object = getData("{{ request.scheme }}://{{ request.META.HTTP_HOST }}/genero/api/listas/")
         const _list = document.getElementsByClassName('book-genre');
         const _domain = "{{ request.get_host | safe}}";
         const _schema = '{{ request.scheme | safe}}';
@@ -165,11 +170,7 @@
     }
 
     function ShoppingCart(){
-        let Httpreq = new XMLHttpRequest();
-        Httpreq.open("GET","http://127.0.0.1:8000/api/carrinho/",false);
-        Httpreq.send(null);
-        const _json = Httpreq.responseText;
-        const _object = JSON.parse(_json);
+        const _object = getData("{{ request.scheme }}://{{ request.META.HTTP_HOST }}/api/carrinho/")
         const _count = document.getElementById('shopping_cart_count')
         const _subtotal = document.getElementById('shopping_cart_subtotal')
         const _count_template = document.getElementsByClassName('product_qun')
@@ -187,7 +188,7 @@
         GenerateShoppingCartItens(_object[0]['book'])
     }
 
-    function GenerateShoppingCartItens(books) {
+    function GenerateShoppingCartItens(books){
         const _container = document.getElementById('container-itens')
         books.forEach(function(book) {
             _container.innerHTML +=`
