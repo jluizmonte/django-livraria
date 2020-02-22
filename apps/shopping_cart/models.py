@@ -16,8 +16,8 @@ class ShoppingCart(models.Model):
         verbose_name = 'Carrinho de compras'
         verbose_name_plural = 'Carrinhos de compras'
 
-    item = models.ForeignKey(Item, on_delete=models.CASCADE, verbose_name='Item', null=True, blank=True)
+    item = models.ManyToManyField(Item, verbose_name='Item')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Usuário')
 
     def __str__(self):
-        return self.user
+        return self.user.username
