@@ -170,22 +170,39 @@
     }
 
     function ShoppingCart(){
-        const _object = getData("{{ request.scheme }}://{{ request.META.HTTP_HOST }}/api/carrinho/")
+        const shopping_cart = (Object.values(getData("{{ request.scheme }}://{{ request.META.HTTP_HOST }}/api/carrinhos/")))[0].item
+        const get_book_pk = element => element.book
+        const get_book = pk => getData(`{{ request.scheme }}://{{ request.META.HTTP_HOST }}/api/livros/${pk}`)
+        let books = shopping_cart.map(get_book_pk)
+        books = books.map(get_book)
+        let result = []
+        let total = 0
+        let amount = 0
+        for(let i = 0; i <= books.length - 1; i++) {
+            result.push({
+                    'name':books[i].name,
+                    'book_cover':books[i].book_cover,
+                    'amount':shopping_cart[i].amount,
+                    'price':shopping_cart[i].amount * books[i].price
+                }
+            )
+            total += shopping_cart[i].amount * books[i].price
+            amount += shopping_cart[i].amount
+        }
+
         const _count = document.getElementById('shopping_cart_count')
         const _subtotal = document.getElementById('shopping_cart_subtotal')
         const _count_template = document.getElementsByClassName('product_qun')
+        _subtotal.innerHTML = `R$${total}`
+        _count_template[0].innerHTML = amount
 
-        _count_template[0].innerHTML = _object[0]['book__count']
-
-        if(_object[0]['book__count'] > 1){
-            _count.innerHTML = _object[0]['book__count']+ ' itens'
+         if(amount > 1){
+            _count.innerHTML = amount + ' itens'
         }else {
-            _count.innerHTML = _object[0]['book__count']+ ' item'
+            _count.innerHTML = amount + ' item'
         }
 
-        _subtotal.innerHTML = 'R$'+_object[0]['book__price__sum']
-
-        GenerateShoppingCartItens(_object[0]['book'])
+        GenerateShoppingCartItens(result)
     }
 
     function GenerateShoppingCartItens(books){
@@ -200,6 +217,7 @@
                                 <h6><a href="product-details.html">${ book['name'] }</a></h6>
                                  <span class="prize">R$${book['price']}</span>
                                     <div class="product_prize d-flex justify-content-between">
+                                        <span class="qun">Quanidade: ${ book['amount'] }</span>
                                         <ul class="d-flex justify-content-end">
                                             <li><a href="#"><i class="zmdi zmdi-settings"></i></a></li>
                                              <li><a href="/carrinho/remover/${book['pk']}"><i class="zmdi zmdi-delete"></i></a></li>
