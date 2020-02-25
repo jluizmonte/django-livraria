@@ -144,35 +144,74 @@
 </header>
 <script>
     (function() {
-        BookGenreMenu()
-        ShoppingCart()
-    })();
-    
-    function getData(url) {
-        let Httpreq = new XMLHttpRequest()
-        Httpreq.open("GET", url, false)
-        Httpreq.send(null)
-        const _json = Httpreq.responseText
-        const _object = JSON.parse(_json)
-        return _object
-    }
+        ajax(
+            {
+                url: "{{ request.scheme }}://{{ request.META.HTTP_HOST }}/genero/api/listas/",
+                method: 'GET',
+                sucesso(resposta) {
+                    const result = JSON.parse(resposta)
+                    generateGenreMenu(result)
+                }, erro(e) {
+                    const mensagem = document.createTextNode(`${e.code}:${e.text}`)
+                    document.body.appendChild(mensagem)
+                }
+            }
+        )
 
-    function BookGenreMenu(){
-        const _object = getData("{{ request.scheme }}://{{ request.META.HTTP_HOST }}/genero/api/listas/")
-        const _list = document.getElementsByClassName('book-genre');
-        const _domain = "{{ request.get_host | safe}}";
-        const _schema = '{{ request.scheme | safe}}';
-        _object.forEach(obj => {
-            for(let i = 0; i < _list.length; i++){
-                _list[i].innerHTML += `<li><a href="${_schema}://${_domain}/livro/lista/${obj.link}/">${ obj.description }</a></li>`
+        ajax(
+            {
+                url: "{{ request.scheme }}://{{ request.META.HTTP_HOST }}/api/carrinhos/",
+                method: 'GET',
+                sucesso(resposta) {
+                    const result = JSON.parse(resposta)
+                    shoppingCart(result)
+                }, erro(e) {
+                    console.log(resposta)
+                }
+            }
+        )
+    })();
+
+    function generateGenreMenu(object){
+        const list = document.getElementsByClassName('book-genre');
+        const domain = "{{ request.get_host | safe}}";
+        const schema = '{{ request.scheme | safe}}';
+        object.forEach(obj => {
+            for(let i = 0; i < list.length; i++){
+                list[i].innerHTML += `<li><a href="${schema}://${domain}/livro/lista/${obj.link}/">${ obj.description }</a></li>`
             }
         });
     }
 
-    function ShoppingCart(){
-        const shopping_cart = (Object.values(getData("{{ request.scheme }}://{{ request.META.HTTP_HOST }}/api/carrinhos/")))[0].item
+    function ajax(config){
+        const xhr = new XMLHttpRequest()
+        xhr.open(config.method, config.url, true)
+        xhr.onload = e => {
+            if (xhr.status === 200) {
+                config.sucesso(xhr.response)
+            } else if (xhr.status >= 400) {
+                config.erro({
+                    code: xhr.status,
+                    text: xhr.statusText
+                })
+            }
+        }
+        xhr.send()
+    }
+
+    function shoppingCart(response){
+        const getBook = (url) => {
+            let Httpreq = new XMLHttpRequest()
+            Httpreq.open("GET", url, false)
+            Httpreq.send(null)
+            const _json = Httpreq.responseText
+            const _object = JSON.parse(_json)
+            return _object
+        }
+
+        const shopping_cart = (Object.values(response))[0].item
         const get_book_pk = element => element.book
-        const get_book = pk => getData(`{{ request.scheme }}://{{ request.META.HTTP_HOST }}/api/livros/${pk}`)
+        const get_book = pk => getBook(`{{ request.scheme }}://{{ request.META.HTTP_HOST }}/api/livros/${pk}`)
         let books = shopping_cart.map(get_book_pk)
         books = books.map(get_book)
         let result = []

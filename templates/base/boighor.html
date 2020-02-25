@@ -79,14 +79,11 @@
                 timer: 3000,
             })
         }
-
-        (
         {% if messages %}
             {% for message in messages %}
-                Message('{{message}}', '{{ message.tags }}')
+                window.onload = Message('{{message}}', '{{ message.tags }}')
             {% endfor %}
         {% endif %}
-        )()
     </script>
 </body>
 </html>
