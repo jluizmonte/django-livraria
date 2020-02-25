@@ -1,19 +1,26 @@
-from django.db.models import Sum, Count
-from rest_framework import mixins, viewsets
+from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAuthenticated
 
 from ..models import ShoppingCart
-from .serializers import ShoppingCartSerializer
+from .serializers import ShoppingCartSerializer, ItemSerializer
 
 
-class Detail(mixins.ListModelMixin, viewsets.GenericViewSet):
+class CustomItemViewset(generics.CreateAPIView, generics.DestroyAPIView, viewsets.GenericViewSet):
     pass
 
 
-class ShoppingCartViewset(Detail):
+class CustomShoppingCartViewset(generics.ListAPIView, viewsets.GenericViewSet):
+    pass
+
+
+class ItemViewset(CustomItemViewset):
+    permission_classes = [IsAuthenticated]
+    serializer_class = ItemSerializer
+
+
+class ShoppingCartVieset(CustomShoppingCartViewset):
     permission_classes = [IsAuthenticated]
     serializer_class = ShoppingCartSerializer
 
     def get_queryset(self):
-        query = ShoppingCart.objects.filter(user=self.request.user).annotate(Sum('book__price')).annotate(Count('book'))
-        return query
+        return ShoppingCart.objects.filter(user=self.request.user)

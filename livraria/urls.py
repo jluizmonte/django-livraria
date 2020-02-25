@@ -4,11 +4,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers
-from apps.shopping_cart.api.viewsets import ShoppingCartViewset
+from apps.shopping_cart.api.viewsets import ItemViewset, ShoppingCartVieset
+from apps.book.api.viewsets import BookViewset
 
 
 router = routers.DefaultRouter()
-router.register(r'carrinho', ShoppingCartViewset, basename='ShoppingCart'),
+router.register(r'livros', BookViewset, basename='Book'),
+router.register(r'items', ItemViewset, basename='Item'),
+router.register(r'carrinhos', ShoppingCartVieset, basename='ShoppingCart')
 
 
 urlpatterns = [
